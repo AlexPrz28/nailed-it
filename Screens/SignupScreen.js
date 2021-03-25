@@ -31,7 +31,7 @@ export default class SignupScreen extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                    <Text style={{fontSize: 35, marginVertical: 50}} >Registrate</Text>
+                    <Text style={{fontSize: 35, marginVertical: 50}} testID="title" >Registrate!</Text>
                     <Text style={{fontSize: 16, color: 'gray', marginTop: 20}}>Ingresa tus datos</Text>
 
 
@@ -68,8 +68,9 @@ export default class SignupScreen extends React.Component{
                 <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 40}}>
                     <TouchableOpacity 
                     onPress={() => this.onSignup()}
-                    style={{width: 200, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 30}}>
-                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 25}}>Registrate</Text>
+                    style={{width: 200, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 30}}
+                    >
+                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 25}}>Sign Up</Text>
                     </TouchableOpacity>
                     
                     <Text style={{marginTop: 100, color: 'gray'}}>Nailed it Copyright</Text>

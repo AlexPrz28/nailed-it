@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import * as React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
@@ -6,10 +6,10 @@ export default class HomeScreen extends React.Component {
 
     render(){
 
-        this.props.navigation.setOptions({ 
-            headerBackTitle: '',
-            headerShown: false ,
-        })
+        // this.props.navigation.setOptions({ 
+        //     headerBackTitle: '',
+        //     headerShown: false ,
+        // })
 
         return(
         <View style={styles.container}>
@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
           resizeMode="contain"
         />
 
-        <Text style={{ fontSize: 40, fontWeight: 'bold' }} >Bienvenide!</Text>
+        <Text style={{ fontSize: 40, fontWeight: 'bold' }} >Bienvenido!</Text>
         <Text style={{ fontSize: 16, color: 'gray', textAlign: 'center', marginHorizontal: 20 }} > Ingresa o crea una nueva cuenta mi ciela</Text>
 
         <View style={{ flexDirection: 'row', margin: 20, paddingVertical: 20 }}>
@@ -33,6 +33,7 @@ export default class HomeScreen extends React.Component {
           <TouchableOpacity
           onPress={ () => this.props.navigation.navigate('Signup') }
             style={{ backgroundColor: '#FFF', padding: 10, width:150, borderRadius: 30, marginHorizontal: 2, borderWidth: 1, borderColor: '#f792fa' }}
+
           >
             <Text style={{ textAlign: 'center', color: '#f792fa', fontSize: 18 }}>Sign Up</Text>
           </TouchableOpacity>

@@ -30,7 +30,7 @@ export default class LoginScreen extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                    <Text style={{fontSize: 35, marginVertical: 50}} >Bienvenide de vuelta!</Text>
+                    <Text style={{fontSize: 35, marginVertical: 50}} >Bienvenido de vuelta!</Text>
                     <Text style={{fontSize: 16, color: 'gray', marginTop: 20}}>Ingresa a tu cuenta</Text>
 
 
