@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import {TextInput} from 'react-native-gesture-handler'
 import * as Animatable from 'react-native-animatable';
+import SignupService from '../service/SignupService';
 
 
 export default class SignupScreen extends React.Component{
@@ -9,24 +10,76 @@ export default class SignupScreen extends React.Component{
     constructor(props){
         super(props)
         this.validateInput = React.createRef()
+
+        this.state = {
+            errorMsg: '',
+            credentials: {
+                username: '',
+                email: '',
+                password: ''
+            }
+        }
     }
 
-    state = {
-        username: "",
-        password: "",
-        mail: "",
-        errorMsg: ""
-    }
+    
+
 
     onSignup = () => {
-        if(this.state.username != '' && this.state.mail != '' && this.state.password != ''){
+        if(this.state.credentials.username != '' && this.state.credentials.email != '' && this.state.credentials.password != ''){
             this.props.navigation.navigate('Home')
+            //this.signupLoko()
+            console.log(this.state.credentials)
         }
         else{
             this.validateInput.current.shake(800)
             this.setState({errorMsg: 'Favor de llenar todos los campos'})
+            console.log(this.state.credentials)
         }
     }
+
+    signupLoko = async() => {
+        console.log("signupLoko")
+        console.log(this.state.credentials)
+        await SignupService.createUser(this.state.credentials).then(
+            response => {
+                console.log(response)
+
+            }
+        )
+
+    }
+
+    handleChange = (event) => {
+        console.log(this.state)
+        this.setState({
+            ...this.state.credentials,
+            username: event
+        });
+    };
+
+    handleChangeUsername = (event) => {
+        console.log(this.state)
+        this.setState({
+            ...this.state.credentials,
+            username: event
+        });
+    };
+
+    handleChangeEmail = (event) => {
+        console.log(this.state)
+        this.setState({
+            ...this.state.credentials,
+            email: event
+        });
+    };
+
+    handleChangePassword = (event) => {
+        console.log(this.state)
+        this.setState({
+            ...this.state.credentials,
+            email: event
+        });
+    };
 
     render(){
         return(
@@ -37,28 +90,26 @@ export default class SignupScreen extends React.Component{
 
                     <Animatable.View ref={this.validateInput}>
                     <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30}} 
+                    autoCapitalize='none'
+                    name="name"
                     placeholder="Nombre de Usuario"
-                    onChangeText = {(text) => 
-                        {this.setState({username:text}), 
-                        this.setState({errorMsg: ''})
-                    }} 
+                    onChangeText = {this.handleChangeUsername} 
+        
                     />
 
                     <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30}} 
+                    autoCapitalize='none'
+                    name="email"
                     placeholder="Correo electronico"
-                    onChangeText = {(text) => 
-                        {this.setState({mail:text}), 
-                        this.setState({errorMsg: ''})
-                    }} 
+                    onChangeText = {this.handleChangeEmail}
                     />
 
                     <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20}} 
+                    autoCapitalize='none'
+                    name="password"
                     placeholder="Contraseña" 
-                    secureTextEntry={true}
-                    onChangeText = {(text) => 
-                        {this.setState({password:text}),
-                        this.setState({errorMsg: ''})
-                        }}
+                    secureTextEntry={false}
+                    onChangeText = {this.handleChangePassword}
                     />
                     <Text style={{color: 'red', textAlign: 'center', marginTop: 10}}>{this.state.errorMsg}</Text>
                 </Animatable.View>

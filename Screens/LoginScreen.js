@@ -35,7 +35,8 @@ export default class LoginScreen extends React.Component{
 
 
                     <Animatable.View ref={this.validateInput}>
-                    <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30}} 
+                    <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30}}
+                    autoCapitalize='none' 
                     placeholder="Usuario"
                     onChangeText = {(text) => 
                         {this.setState({username:text}), 
@@ -44,6 +45,7 @@ export default class LoginScreen extends React.Component{
                     />
 
                     <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20}} 
+                    autoCapitalize='none'
                     placeholder="Contraseña" 
                     secureTextEntry={true}
                     onChangeText = {(text) => 
