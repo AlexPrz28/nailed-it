@@ -13,6 +13,7 @@ export default class MainScreen extends React.Component{
             <View style={styles.container}>
                 <Text>Main screen</Text>
                 <Button title="Logout" onPress={() => this.props.navigation.navigate('Home')} />
+                <Button title="Delete Account" onPress={() => this.props.navigation.navigate('DeleteAccount')} />
 
             </View>
         )
