@@ -49,37 +49,35 @@ export default class SignupScreen extends React.Component{
 
     }
 
-    handleChange = (event) => {
+    handleChange = (event, target) => {
         console.log(this.state)
-        this.setState({
-            ...this.state.credentials,
-            username: event
-        });
+        if(target == 'username'){
+            this.setState(prevState => ({
+                credentials: {                   // object that we want to update
+                    ...prevState.credentials,    // keep all other key-value pairs
+                    username: event       // update the value of specific key
+                }
+            }))
+        }
+        else if(target == 'email'){
+            this.setState(prevState => ({
+                credentials: {                   // object that we want to update
+                    ...prevState.credentials,    // keep all other key-value pairs
+                    email: event       // update the value of specific key
+                }
+            }))
+        }
+        else if(target == 'password'){
+            this.setState(prevState => ({
+                credentials: {                   // object that we want to update
+                    ...prevState.credentials,    // keep all other key-value pairs
+                    password: event       // update the value of specific key
+                }
+            }))
+        }
+        
     };
 
-    handleChangeUsername = (event) => {
-        console.log(this.state)
-        this.setState({
-            ...this.state.credentials,
-            username: event
-        });
-    };
-
-    handleChangeEmail = (event) => {
-        console.log(this.state)
-        this.setState({
-            ...this.state.credentials,
-            email: event
-        });
-    };
-
-    handleChangePassword = (event) => {
-        console.log(this.state)
-        this.setState({
-            ...this.state.credentials,
-            email: event
-        });
-    };
 
     render(){
         return(
@@ -93,7 +91,7 @@ export default class SignupScreen extends React.Component{
                     autoCapitalize='none'
                     name="name"
                     placeholder="Nombre de Usuario"
-                    onChangeText = {this.handleChangeUsername} 
+                    onChangeText = {text => this.handleChange(text, 'username')} 
         
                     />
 
@@ -101,7 +99,7 @@ export default class SignupScreen extends React.Component{
                     autoCapitalize='none'
                     name="email"
                     placeholder="Correo electronico"
-                    onChangeText = {this.handleChangeEmail}
+                    onChangeText = {text => this.handleChange(text, 'email')}
                     />
 
                     <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20}} 
@@ -109,7 +107,7 @@ export default class SignupScreen extends React.Component{
                     name="password"
                     placeholder="Contraseña" 
                     secureTextEntry={false}
-                    onChangeText = {this.handleChangePassword}
+                    onChangeText = {text => this.handleChange(text, 'password')}
                     />
                     <Text style={{color: 'red', textAlign: 'center', marginTop: 10}}>{this.state.errorMsg}</Text>
                 </Animatable.View>
