@@ -106,7 +106,7 @@ export default class LoginScreen extends React.Component{
                     <Animatable.View ref={this.validateInput}>
                     <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30}}
                     autoCapitalize='none' 
-                    placeholder="Usuario"
+                    placeholder="Email"
                     onChangeText = {text => this.handleChange(text, 'email')}
                     />
 
@@ -121,7 +121,7 @@ export default class LoginScreen extends React.Component{
 
                 <TouchableOpacity style={{ marginTop: 15, alignItems: 'center', justifyContent: 'center' }}
                     onPress={() => this.props.navigation.navigate('ForgotPassword')}>
-                    <Text style={{ color: '#F19CBB' }}>Olvidé mi contraseña</Text>
+                    <Text style={{ color: '#00D3F0' }}>Olvidé mi contraseña</Text>
                 </TouchableOpacity>
 
                 
