@@ -5,13 +5,9 @@ const manageAPI = 'https://nailed-it-api.herokuapp.com/'
 export class SignupService {
 
     async createUser(credentials){
-        console.log("Estoy usando createUser")
-        console.log(credentials)
         try{
-            const data = axios.post(`${manageAPI}/users/signup`, credentials);
-            console.log("SIGNUP SUCCESSFUL")
-            console.log(data)
-            return data;
+            const data = await axios.post(`${manageAPI}users/signup`, credentials);
+            return data.data;
 
         }
         catch(err) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import {TextInput} from 'react-native-gesture-handler'
 import * as Animatable from 'react-native-animatable';
 import SignupService from '../service/SignupService';
@@ -19,6 +19,7 @@ export default class SignupScreen extends React.Component{
                 password: ''
             }
         }
+        this.signupSer = this.signupSer.bind(this)
     }
 
     
@@ -27,30 +28,31 @@ export default class SignupScreen extends React.Component{
     onSignup = () => {
         if(this.state.credentials.username != '' && this.state.credentials.email != '' && this.state.credentials.password != ''){
             this.props.navigation.navigate('Home')
-            //this.signupLoko()
-            console.log(this.state.credentials)
+            this.signupSer()
+            Alert.alert("Cuenta creada", "Felicidades! tu cuenta ha sido creada")
+            //console.log(this.state.credentials)
         }
         else{
             this.validateInput.current.shake(800)
             this.setState({errorMsg: 'Favor de llenar todos los campos'})
-            console.log(this.state.credentials)
+            //console.log(this.state.credentials)
         }
     }
 
-    signupLoko = async() => {
-        console.log("signupLoko")
-        console.log(this.state.credentials)
+    signupSer = async() => {
         await SignupService.createUser(this.state.credentials).then(
             response => {
                 console.log(response)
 
             }
-        )
+        ).catch(err =>{
+            console.log(err)
+        })
 
     }
 
     handleChange = (event, target) => {
-        console.log(this.state)
+        //console.log(this.state)
         if(target == 'username'){
             this.setState(prevState => ({
                 credentials: {                   // object that we want to update
@@ -116,7 +118,7 @@ export default class SignupScreen extends React.Component{
 
                 <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 40}}>
                     <TouchableOpacity 
-                    onPress={() => this.onSignup()}
+                    onPress={this.onSignup}
                     style={{width: 200, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 30}}
                     >
                         <Text style={{textAlign: 'center', color: '#fff', fontSize: 25}}>Sign Up</Text>

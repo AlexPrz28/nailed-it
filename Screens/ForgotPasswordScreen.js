@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import * as Animatable from 'react-native-animatable';
 
@@ -12,18 +12,18 @@ export default class ForgotPasswordScreen extends React.Component {
     }
 
     state = {
-        username: "",
-        password: "",
+        email: "",
         errorMsg: "",
     }
 
-    onLogin = () => {
-        if(this.state.username == 'Alex' && this.state.password == '1234'){
-            this.props.navigation.navigate('Main')
+    onRecoverPass = () => {
+        if(this.state.email != ''){
+            this.props.navigation.navigate('RecoverPassword')
+            Alert.alert("Token enviado", "Se ha enviado un correo para recuperar su contraseña")
         }
         else{
             this.validateInput.current.shake(800)
-            this.setState({errorMsg: 'Usuario o contraseña invalida'})
+            this.setState({errorMsg: 'Favor de llenar todos los campos'})
         }
     }
 
@@ -38,8 +38,8 @@ export default class ForgotPasswordScreen extends React.Component {
                     <TextInput style={{ marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30 }}
                         placeholder="Email"
                         onChangeText={(text) => {
-                            this.setState({ username: text }),
-                                this.setState({ errorMsg: '' })
+                            this.setState({ email: text }),
+                            this.setState({ errorMsg: '' })
                         }}
                     />
                     <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>{this.state.errorMsg}</Text>
@@ -47,7 +47,7 @@ export default class ForgotPasswordScreen extends React.Component {
 
                 <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Home')}
+                        onPress={() => this.onRecoverPass()}
                         style={{ width: 200, backgroundColor: '#F19CBB', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 0 }}>
                         <Text style={{ textAlign: 'center', color: '#fff', fontSize: 20 }}>Reestablecer</Text>
                     </TouchableOpacity>
