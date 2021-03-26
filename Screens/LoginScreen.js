@@ -56,12 +56,17 @@ export default class LoginScreen extends React.Component{
                     <Text style={{color: 'red', textAlign: 'center', marginTop: 10}}>{this.state.errorMsg}</Text>
                 </Animatable.View>
 
+                <TouchableOpacity style={{ marginTop: 0, alignItems: 'center', justifyContent: 'center' }}
+                    onPress={() => this.props.navigation.navigate('ForgotPassword')}>
+                    <Text style={{ color: '#F19CBB' }}>Olvidé mi contraseña</Text>
+                </TouchableOpacity>
+
                 
 
                 <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 40}}>
                     <TouchableOpacity 
                     onPress={() => this.onLogin()}
-                    style={{width: 200, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 30}}>
+                    style={{width: 200, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 25}}>
                         <Text style={{textAlign: 'center', color: '#fff', fontSize: 25}}>Login</Text>
                     </TouchableOpacity>
 
