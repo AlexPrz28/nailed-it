@@ -8,6 +8,8 @@ import SignupScreen from './Screens/SignupScreen';
 import MainScreen from './Screens/MainScreen';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import UpdatedPasswordScreen from './Screens/UpdatedPasswordScreen';
+import AccountDeletedScreen from './Screens/AccountDeletedScreen';
+
 
 const { Screen, Navigator } = createStackNavigator();
 const Stack = createStackNavigator();
@@ -23,6 +25,7 @@ export default function Navigation() {
       <Stack.Screen name="Main" component={MainScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="UpdatedPassword" component={UpdatedPasswordScreen} />
+      <Stack.Screen name="AccountDeleted" component={AccountDeletedScreen} />
     </Stack.Navigator>
   );
 }
