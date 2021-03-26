@@ -4,7 +4,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import * as Animatable from 'react-native-animatable';
 
 
-export default class SignupScreen extends React.Component {
+export default class ForgotPasswordScreen extends React.Component {
 
     constructor(props) {
         super(props)
@@ -14,46 +14,26 @@ export default class SignupScreen extends React.Component {
     state = {
         username: "",
         password: "",
-        mail: "",
-        errorMsg: ""
-    }
-
-    onSignup = () => {
-        if (this.state.username != '' && this.state.mail != '' && this.state.password != '') {
-            this.props.navigation.navigate('Home')
-        }
-        else {
-            this.validateInput.current.shake(800)
-            this.setState({ errorMsg: 'Favor de llenar todos los campos' })
-        }
+        errorMsg: "",
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 35, textAlign: "center", marginVertical: 50 }} testID="title" >Regístrate</Text>
-                <Text style={{ fontSize: 16, color: 'gray', marginTop: 20 }}>Ingresa tus datos</Text>
+                <Text style={{ fontSize: 16, color: 'gray', marginTop: 20 }}>Recupera tu Cuenta</Text>
 
 
                 <Animatable.View ref={this.validateInput}>
                     <TextInput style={{ marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30 }}
-                        placeholder="Nombre de Usuario"
+                        placeholder="Usuario"
                         onChangeText={(text) => {
                             this.setState({ username: text }),
                                 this.setState({ errorMsg: '' })
                         }}
                     />
 
-                    <TextInput style={{ marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30 }}
-                        placeholder="Correo electronico"
-                        onChangeText={(text) => {
-                            this.setState({ mail: text }),
-                                this.setState({ errorMsg: '' })
-                        }}
-                    />
-
                     <TextInput style={{ marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20 }}
-                        placeholder="Contraseña"
+                        placeholder="Nueva Contraseña"
                         secureTextEntry={true}
                         onChangeText={(text) => {
                             this.setState({ password: text }),
@@ -63,29 +43,28 @@ export default class SignupScreen extends React.Component {
                     <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>{this.state.errorMsg}</Text>
                 </Animatable.View>
 
-
-
                 <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
-                    <TouchableOpacity
-                        onPress={() => this.onSignup()}
-                        style={{ width: 200, backgroundColor: '#EFDECD', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 1 }}
-                    >
-                        <Text style={{ textAlign: 'center', color: '#fff', fontSize: 25 }}>Sign Up</Text>
-                    </TouchableOpacity>
 
-                    <Text style={{ marginTop: 100, color: 'gray' }}>Nailed it Copyright</Text>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('UpdatedPassword')}
+                        style={{ width: 200, backgroundColor: '#F19CBB', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 0 }}>
+                        <Text style={{ textAlign: 'center', color: '#fff', fontSize: 20 }}>Reestablecer</Text>
+                    </TouchableOpacity>
 
                 </View>
 
             </View>
         )
+
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        textAlign: "center",
+        justifyContent: "center",
     }
 })
 
