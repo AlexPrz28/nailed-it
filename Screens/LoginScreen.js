@@ -35,7 +35,7 @@ export default class LoginScreen extends React.Component{
         console.log(this.state)
         if(this.state.credentials.username != '' && this.state.credentials.email != '' && this.state.credentials.password != ''){
             await this.loginSer()
-            if(this.state.status == true){
+            if(this.state.status == false){
                 this.props.navigation.navigate('Main') 
             //console.log(this.state.credentials)
             }
