@@ -9,6 +9,7 @@ import MainScreen from './Screens/MainScreen';
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import RecoverPasswordScreen from './Screens/RecoverPasswordScreen';
 import DeleteAccountScreen from './Screens/DeleteAccount';
+import ServicesScreen from './Screens/ServicesScreen';
 
 const { Screen, Navigator } = createStackNavigator();
 const Stack = createStackNavigator();
@@ -18,14 +19,14 @@ export default function Navigation() {
 
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
-        <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
-        <Stack.Screen name="Main" component={MainScreen} />
-
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
+      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="Services" component={ServicesScreen} />
     </Stack.Navigator>
   );
 }
