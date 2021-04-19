@@ -203,7 +203,6 @@ const ServicesScreen = () => {
                 >
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#3D5B59' }}>{item.name}</Text>
 
-
                 </View>
                 <View style={{
                     marginTop: 5,
@@ -211,7 +210,6 @@ const ServicesScreen = () => {
                 }}
                 >
                     {/*Rating*/}
-
                     <Image
                         source={icons.star}
                         style={{
@@ -224,6 +222,20 @@ const ServicesScreen = () => {
                         }}
                     />
                     <Text style={{ fontSize: 20, color: '#3D5B59' }} >{item.rating}</Text>
+
+                    {/*Price*/}
+                    <Image
+                        source={icons.dollar}
+                        style={{
+                            height: 20,
+                            width: 20,
+                            tintColor: "#B99095",
+                            marginRight: 2,
+                            marginLeft: 17,
+                            marginTop: 3,
+                        }}
+                    />
+                    <Text style={{ fontSize: 20, color: '#3D5B59' }} >{item.price}</Text>
                 </View>
                 <View
                     style={{
