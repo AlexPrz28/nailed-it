@@ -21,28 +21,38 @@ const MainScreen = ({navigation}) => {
     const salonData = [
         {
             id: 1,
-            name: "Salon 1",
+            name: "Style only salon",
             photo: images.hair_salon1,
+            duration: "Sin cita",
+            rating: 4.9
         },
         {
             id: 2,
-            name: "Salon 2",
+            name: "Hais studio salon",
             photo: images.hair_salon2,
+            duration: "Con cita",
+            rating: 4.2
         },
         {
             id: 3,
-            name: "Salon 3",
+            name: "Kapelo Salon & Spa",
             photo: images.hair_salon3,
+            duration: "Con cita",
+            rating: 5.0
         },
         {
             id: 4,
-            name: "Salon 4",
+            name: "Ely's Hair Salon",
             photo: images.hair_salon4,
+            duration: "Sin cita",
+            rating: 3.9
         },
         {
             id: 5,
-            name: "Salon 5",
+            name: "Allisa Hair & Nail Express",
             photo: images.hair_salon5,
+            duration: "Con cita",
+            rating: 2.5
         }
     ]
 
@@ -72,10 +82,13 @@ const MainScreen = ({navigation}) => {
     // }
     function renderSalonsList() {
         const renderItem = ({item}) => (
-            <TouchableOpacity style = {{marginBottom: 20, marginTop: 20}}
-            //OnPress => navigate to Select date for Service
+            <TouchableOpacity style = {{marginBottom: 5, marginTop: 20}}
+            //OnPress => navigate to Selected Salon
             >
-                <View>
+                <View style={{
+                    marginBottom: 10 
+                }}
+                >
                     <Image
                         source = {item.photo}
                         resizeMode="cover"
@@ -85,6 +98,40 @@ const MainScreen = ({navigation}) => {
                             borderRadius: 30
                         }}
                     />
+                    <View
+                        style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            height: 50,
+                            width: 120,
+                            backgroundColor: '#F5F5F5', 
+                            borderTopRightRadius: 30,
+                            borderBottomLeftRadius: 30,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            ...styles.shadow
+                        }}
+                    >
+                        <Text style={{lineHeight: 22}}>{item.duration}</Text>
+                    </View>
+                </View>
+
+                <Text style = {{fontSize: 30, fontWeight: 'bold'}}>{item.name}</Text>
+                <View 
+                    style={{
+                        marginTop: 5,
+                        flexDirection: 'row'
+                    }}
+                >
+                    <Image
+                        source={icons.star}
+                        style={{
+                            height: 20,
+                            width: 20,
+                            marginRight: 10
+                        }}
+                    />
+                    <Text style={{ fontSize: 15}}>{item.rating}</Text>
                 </View>
             </TouchableOpacity>
         )
