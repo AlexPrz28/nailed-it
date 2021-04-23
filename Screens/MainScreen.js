@@ -24,7 +24,72 @@ const MainScreen = ({navigation}) => {
             name: "Style only salon",
             photo: images.hair_salon1,
             duration: "Sin cita",
-            rating: 4.9
+            rating: 4.9,
+            servicesMenu: [
+                {
+                    serviceid: 1,
+                    name: "Basic Shellac",
+                    rating: 4.2,
+                    categories: 1,
+                    price: "200 MXN",
+                    photo: images.basic_shellac,
+                    duration: "35 - 45 min",
+                },
+                {
+                    serviceid: 2,
+                    name: "Acrílico + Shellac",
+                    rating: 4.9,
+                    categories: 1,
+                    price: "380 MXN",
+                    photo: images.acrylic_shellac,
+                    duration: "40 - 50 min",
+                },
+                {
+                    serviceid: 3,
+                    name: "Acrílico Real",
+                    rating: 4.5,
+                    categories: 2,
+                    price: "520 MXN",
+                    photo: images.acrylic,
+                    duration: "45 - 55 min",
+                },
+                {
+                    serviceid: 4,
+                    name: "Manicure",
+                    rating: 4.1,
+                    categories: 2,
+                    price: "380 MXN",
+                    photo: images.mani,
+                    duration: "30 - 35 min",
+                },
+                {
+                    serviceid: 5,
+                    name: "Pedicure",
+                    rating: 4.1,
+                    categories: 2,
+                    price: "400 MXN",
+                    photo: images.pedi,
+                    duration: "40 - 50 min",
+                },
+                {
+                    serviceid: 6,
+                    name: "Maquillaje Express",
+                    rating: 3.8,
+                    categories: 2,
+                    price: "200 MXN",
+                    photo: images.makeup,
+                    duration: "20 - 35 min",
+                },
+                {
+                    serviceid: 7,
+                    name: "Peinado Express",
+                    rating: 3.2,
+                    categories: 2,
+                    price: "150 MXN",
+                    photo: images.hair,
+                    duration: "20 - 35 min",
+                },
+            ]
         },
         {
             id: 2,
@@ -83,7 +148,11 @@ const MainScreen = ({navigation}) => {
     function renderSalonsList() {
         const renderItem = ({item}) => (
             <TouchableOpacity style = {{marginBottom: 5, marginTop: 20}}
-            //OnPress => navigate to Selected Salon
+            
+            onPress = {() => navigation.navigate("Services", {
+                item
+            }         
+            )}
             >
                 <View style={{
                     marginBottom: 10 

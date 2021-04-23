@@ -10,6 +10,7 @@ import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
 import RecoverPasswordScreen from './Screens/RecoverPasswordScreen';
 import DeleteAccountScreen from './Screens/DeleteAccount';
 import Tabs from './navigation/tabs';
+import ServicesScreen from './Screens/ServicesScreen';
 
 const { Screen, Navigator } = createStackNavigator();
 const Stack = createStackNavigator();
@@ -26,6 +27,8 @@ export default function Navigation() {
         <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
         <Stack.Screen name="Main" component={Tabs} />
+        <Stack.Screen name="Services" component={ServicesScreen} />
+
 
     </Stack.Navigator>
   );
