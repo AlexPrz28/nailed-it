@@ -44,8 +44,17 @@ const MainScreen = ({navigation}) => {
                     photo: images.acrylic_shellac,
                     duration: "40 - 50 min",
                 },
+            ]
+        },
+        {
+            id: 2,
+            name: "Hais studio salon",
+            photo: images.hair_salon2,
+            duration: "Con cita",
+            rating: 4.2,
+            servicesMenu: [
                 {
-                    serviceid: 3,
+                    serviceid: 1,
                     name: "Acrílico Real",
                     rating: 4.5,
                     categories: 2,
@@ -54,7 +63,7 @@ const MainScreen = ({navigation}) => {
                     duration: "45 - 55 min",
                 },
                 {
-                    serviceid: 4,
+                    serviceid: 2,
                     name: "Manicure",
                     rating: 4.1,
                     categories: 2,
@@ -62,8 +71,17 @@ const MainScreen = ({navigation}) => {
                     photo: images.mani,
                     duration: "30 - 35 min",
                 },
+            ]
+        },
+        {
+            id: 3,
+            name: "Kapelo Salon & Spa",
+            photo: images.hair_salon3,
+            duration: "Con cita",
+            rating: 5.0,
+            servicesMenu: [
                 {
-                    serviceid: 5,
+                    serviceid: 1,
                     name: "Pedicure",
                     rating: 4.1,
                     categories: 2,
@@ -72,7 +90,7 @@ const MainScreen = ({navigation}) => {
                     duration: "40 - 50 min",
                 },
                 {
-                    serviceid: 6,
+                    serviceid: 1,
                     name: "Maquillaje Express",
                     rating: 3.8,
                     categories: 2,
@@ -80,8 +98,17 @@ const MainScreen = ({navigation}) => {
                     photo: images.makeup,
                     duration: "20 - 35 min",
                 },
+            ]
+        },
+        {
+            id: 4,
+            name: "Ely's Hair Salon",
+            photo: images.hair_salon4,
+            duration: "Sin cita",
+            rating: 3.9,
+            servicesMenu: [
                 {
-                    serviceid: 7,
+                    serviceid: 1,
                     name: "Peinado Express",
                     rating: 3.2,
                     categories: 2,
@@ -90,27 +117,6 @@ const MainScreen = ({navigation}) => {
                     duration: "20 - 35 min",
                 },
             ]
-        },
-        {
-            id: 2,
-            name: "Hais studio salon",
-            photo: images.hair_salon2,
-            duration: "Con cita",
-            rating: 4.2
-        },
-        {
-            id: 3,
-            name: "Kapelo Salon & Spa",
-            photo: images.hair_salon3,
-            duration: "Con cita",
-            rating: 5.0
-        },
-        {
-            id: 4,
-            name: "Ely's Hair Salon",
-            photo: images.hair_salon4,
-            duration: "Sin cita",
-            rating: 3.9
         },
         {
             id: 5,

@@ -27,6 +27,7 @@ const ServicesScreen = ({route, navigation}) => {
     const [selectedCategory, setSelectedCategory] = useState(null)
     //const [services, setServices] = useState(null)
     const [salon, setSalon] = React.useState(null);
+    //const { salons } = route.params;
 
     React.useEffect(() => {
         let { item } = route.params;
@@ -97,7 +98,7 @@ const ServicesScreen = ({route, navigation}) => {
     }
 
     function renderServicesList() {
-        const renderItem = ({ salon }) => (
+        const renderItem = ({ item }) => (
             <TouchableOpacity
                 style={{
                     marginTop: 20,
@@ -105,11 +106,6 @@ const ServicesScreen = ({route, navigation}) => {
                     //OnPress => navigate to Select date for Service 
                 }}>
                 {/* Image */}
-
-                { salon?.menu.map((item, index) => ( 
-                    <View 
-                        key={`servicesMenu-${index}`}
-                    >
                         <View
                             style={{
                                 marginBottom: 5,
@@ -190,22 +186,98 @@ const ServicesScreen = ({route, navigation}) => {
                             }}
                         >
                         </View>
-                    </View>
                     ))
-                        }
                     </TouchableOpacity >
                 )
 
-        return (
-            <FlatList
-                data={salon}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={renderItem}
-                contentContainerStyle={{
-                    paddingHorizontal: 20,
-                    paddingBottom: 30,
-                }}
-            />
+        return ( 
+            <View>
+
+                {salon?.servicesMenu.map(
+                    item => (
+                        <View 
+                        style={{
+                            marginBottom: 5,
+                        }}
+                        >
+                            <Image
+                                source={item.photo}
+                                resizeMode='cover'
+                                style={{
+                                    width: '100%',
+                                    height: 200,
+                                    borderRadius: 40,
+                                }}
+                            />
+
+                            <View style={{
+                                position: 'absolute',
+                                bottom: 55,
+                                height: 40,
+                                width: 110,
+                                backgroundColor: 'white',
+                                borderTopRightRadius: 20,
+                                borderBottomLeftRadius: 20,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Text>{item.duration}</Text>
+
+                            </View>
+                            <View style={{
+                            marginTop: 5,
+                            flexDirection: 'row'
+                        }}
+                        >
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#3D5B59' }}>{item.name}</Text>
+
+                        </View>
+                        <View style={{
+                            marginTop: 5,
+                            flexDirection: 'row'
+                        }}
+                        >
+                            {/*Rating*/}
+                            <Image
+                                source={icons.star}
+                                style={{
+                                    height: 20,
+                                    width: 20,
+                                    tintColor: "#B99095",
+                                    marginRight: 3,
+                                    marginLeft: 0,
+                                    marginTop: 2,
+                                }}
+                            />
+                            <Text style={{ fontSize: 20, color: '#3D5B59' }} >{item.rating}</Text>
+
+                            {/*Price*/}
+                            <Image
+                                source={icons.dollar}
+                                style={{
+                                    height: 20,
+                                    width: 20,
+                                    tintColor: "#B99095",
+                                    marginRight: 2,
+                                    marginLeft: 17,
+                                    marginTop: 3,
+                                }}
+                            />
+                            <Text style={{ fontSize: 20, color: '#3D5B59' }} >{item.price}</Text>
+                        </View>
+                        </View>
+                    )
+                )}
+            </View>
+            // <FlatList
+            //     data={salon?.servicesMenu}
+            //     keyExtractor={(item) => item.serviceid.toString()}
+            //     renderItem={renderItem}
+            //     contentContainerStyle={{
+            //         paddingHorizontal: 20,
+            //         paddingBottom: 30,
+            //     }}
+            // />
         )
         
     }
