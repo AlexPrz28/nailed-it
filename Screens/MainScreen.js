@@ -77,7 +77,7 @@ const MainScreen = ({navigation}) => {
             
             onPress = {() => navigation.navigate("Services", {
                 id: item._id
-            })} >
+            })} testID="button" >
                 <View style={{
                     marginBottom: 10 
                 }}

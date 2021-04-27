@@ -50,7 +50,7 @@ describe('Testing react navigation', () => {
       </NavigationContainer>
     );
 
-    const { findByText} = render(component);
+    const { findByText } = render(component);
 
     const header = await findByText('Bienvenido!');
 
@@ -88,6 +88,40 @@ describe('Testing react navigation', () => {
 
     expect(newHeader).toBeTruthy();
   });
+
+  test('button click login to main screen', async () => {
+    const component = (
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    );
+
+    const { findByText } = render(component);
+    const toClick = await findByText('Login');
+
+    fireEvent(toClick, 'press');
+    const newHeader = await findByText('Main');
+
+    expect(newHeader).toBeTruthy();
+  });
+
+  test('button click on salon shows services', async () => {
+    const component = (
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    );
+
+    const { findByText, findByTestId } = render(component);
+    const toClick = await findByTestId('button');
+
+    fireEvent(toClick, 'press');
+    const newHeader = await findByText('Services');
+
+    expect(newHeader).toBeTruthy();
+  });
+
+  
 
 });
 
