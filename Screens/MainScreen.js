@@ -1,6 +1,6 @@
 import  React from 'react'
 import{icons, images} from "../constants"
-
+import SalonService from '../service/SalonService';
 import { 
     SafeAreaView, 
     View,
@@ -10,6 +10,12 @@ import {
     Image,
     FlatList
 } from "react-native";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import moment from 'moment'
+
+
+
 
 const MainScreen = ({navigation}) => {
 
@@ -18,154 +24,66 @@ const MainScreen = ({navigation}) => {
     //     headerShown: false ,
     // })
 
-    const salonData = [
-        {
-            id: 1,
-            name: "Style only salon",
-            photo: images.hair_salon1,
-            duration: "Sin cita",
-            rating: 4.9,
-            servicesMenu: [
-                {
-                    serviceid: 1,
-                    name: "Basic Shellac",
-                    rating: 4.2,
-                    categories: 1,
-                    price: "200 MXN",
-                    photo: images.basic_shellac,
-                    duration: "35 - 45 min",
-                },
-                {
-                    serviceid: 2,
-                    name: "Acrílico + Shellac",
-                    rating: 4.9,
-                    categories: 1,
-                    price: "380 MXN",
-                    photo: images.acrylic_shellac,
-                    duration: "40 - 50 min",
-                },
-            ]
-        },
-        {
-            id: 2,
-            name: "Hais studio salon",
-            photo: images.hair_salon2,
-            duration: "Con cita",
-            rating: 4.2,
-            servicesMenu: [
-                {
-                    serviceid: 1,
-                    name: "Acrílico Real",
-                    rating: 4.5,
-                    categories: 2,
-                    price: "520 MXN",
-                    photo: images.acrylic,
-                    duration: "45 - 55 min",
-                },
-                {
-                    serviceid: 2,
-                    name: "Manicure",
-                    rating: 4.1,
-                    categories: 2,
-                    price: "380 MXN",
-                    photo: images.mani,
-                    duration: "30 - 35 min",
-                },
-            ]
-        },
-        {
-            id: 3,
-            name: "Kapelo Salon & Spa",
-            photo: images.hair_salon3,
-            duration: "Con cita",
-            rating: 5.0,
-            servicesMenu: [
-                {
-                    serviceid: 1,
-                    name: "Pedicure",
-                    rating: 4.1,
-                    categories: 2,
-                    price: "400 MXN",
-                    photo: images.pedi,
-                    duration: "40 - 50 min",
-                },
-                {
-                    serviceid: 1,
-                    name: "Maquillaje Express",
-                    rating: 3.8,
-                    categories: 2,
-                    price: "200 MXN",
-                    photo: images.makeup,
-                    duration: "20 - 35 min",
-                },
-            ]
-        },
-        {
-            id: 4,
-            name: "Ely's Hair Salon",
-            photo: images.hair_salon4,
-            duration: "Sin cita",
-            rating: 3.9,
-            servicesMenu: [
-                {
-                    serviceid: 1,
-                    name: "Peinado Express",
-                    rating: 3.2,
-                    categories: 2,
-                    price: "150 MXN",
-                    photo: images.hair,
-                    duration: "20 - 35 min",
-                },
-            ]
-        },
-        {
-            id: 5,
-            name: "Allisa Hair & Nail Express",
-            photo: images.hair_salon5,
-            duration: "Con cita",
-            rating: 2.5
-        }
-    ]
 
-    const [salons, setSalons] = React.useState(salonData)
+    function renderMainSalons() {
+        return (
+            <View>
+                <Text style = {{
+                    height: 50,
+                    fontSize: 48,
+                    fontWeight: 'bold',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                    }}
+                    >Lista de
+                </Text>
+                <Text style = {{
+                    height: 650,
+                    fontSize: 48,
+                    fontWeight: 'bold',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>Salones</Text>
+            </View>
+        )
+    }
 
-    // function renderMainSalons() {
-    //     return (
-    //         <View>
-    //             <Text style = {{
-    //                 height: 50,
-    //                 fontSize: 48,
-    //                 fontWeight: 'bold',
-    //                 justifyContent: 'center',
-    //                 alignItems: 'center'
-    //                 }}
-    //                 >Lista de
-    //             </Text>
-    //             <Text style = {{
-    //                 height: 650,
-    //                 fontSize: 48,
-    //                 fontWeight: 'bold',
-    //                 justifyContent: 'center',
-    //                 alignItems: 'center'
-    //             }}>Salones</Text>
-    //         </View>
-    //     )
-    // }
-    function renderSalonsList() {
+
+    useEffect(() => {
+        SalonService.getSalons().then((res) => {
+            //console.log(res)
+            setSalones(res.data)
+            
+        })
+        .catch(err => console.log(err));
+    }, []);
+
+    const [salones, setSalones] = useState([])
+
+
+    function time_convert(num){ 
+        var military_time = Math.floor(num/60) + ':' + num%60
+        var mTime = moment(military_time, "hh:mm").format('LT')
+        return mTime
+           
+    }
+
+
+
+    function renderSalonsList() 
+    {
         const renderItem = ({item}) => (
             <TouchableOpacity style = {{marginBottom: 5, marginTop: 20}}
             
             onPress = {() => navigation.navigate("Services", {
-                item
-            }         
-            )}
-            >
+                id: item._id
+            })} >
                 <View style={{
                     marginBottom: 10 
                 }}
                 >
                     <Image
-                        source = {item.photo}
+                        source = {{uri:item.imageUrl}}
                         resizeMode="cover"
                         style = {{
                             width:"100%",
@@ -178,7 +96,7 @@ const MainScreen = ({navigation}) => {
                             position: 'absolute',
                             bottom: 0,
                             height: 50,
-                            width: 120,
+                            width: 140,
                             backgroundColor: '#F5F5F5', 
                             borderTopRightRadius: 30,
                             borderBottomLeftRadius: 30,
@@ -187,7 +105,7 @@ const MainScreen = ({navigation}) => {
                             ...styles.shadow
                         }}
                     >
-                        <Text style={{lineHeight: 22}}>{item.duration}</Text>
+                        <Text style={{lineHeight: 22, lineWidth: 100}}>{time_convert(item.openHour)}-{time_convert(item.closeHour)}</Text>
                     </View>
                 </View>
 
@@ -209,10 +127,11 @@ const MainScreen = ({navigation}) => {
                     <Text style={{ fontSize: 15}}>{item.rating}</Text>
                 </View>
             </TouchableOpacity>
+
         )
         return(
             <FlatList
-            data={salons}
+            data={salones} 
             keyExtractor={item => `${item.id}`}
             renderItem={renderItem}
             contentContainerStyle={{
@@ -228,6 +147,7 @@ const MainScreen = ({navigation}) => {
             {renderSalonsList()}
         </SafeAreaView>
     )
+    
 }
 
 const styles = StyleSheet.create({

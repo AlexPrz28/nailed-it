@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { icons, images } from '../constants'
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import MainScreen from "./MainScreen";
+import ServiceService from "../service/ServiceService";
 
 const ServicesScreen = ({route, navigation}) => {
 
@@ -29,11 +30,26 @@ const ServicesScreen = ({route, navigation}) => {
     const [salon, setSalon] = React.useState(null);
     //const { salons } = route.params;
 
-    React.useEffect(() => {
-        let { item } = route.params;
 
-        setSalon(item)
-    })
+    // React.useEffect(() => { //funcion magica 
+    //     //let { item } = route.params;
+    //     const { id } = route.params;
+
+    //     setSalon(item)
+    // })
+
+    const [servicio, setServicios] = React.useState([]);
+
+    React.useEffect(() => {
+        const { id } = route.params;
+        console.log(id)
+        ServiceService.getServices(id).then((res) => {
+            console.log(res)
+            setServicios(res.data)
+        })
+        .catch(err => console.log(err));
+    }, []);
+
 
 
     // function onSelectCategory(category) {
@@ -192,8 +208,7 @@ const ServicesScreen = ({route, navigation}) => {
 
         return ( 
             <View>
-
-                {salon?.servicesMenu.map(
+                {servicio?.map(
                     item => (
                         <View 
                         style={{
@@ -201,7 +216,7 @@ const ServicesScreen = ({route, navigation}) => {
                         }}
                         >
                             <Image
-                                source={item.photo}
+                                source={{uri:item.imageUrl}}
                                 resizeMode='cover'
                                 style={{
                                     width: '100%',
@@ -214,14 +229,14 @@ const ServicesScreen = ({route, navigation}) => {
                                 position: 'absolute',
                                 bottom: 55,
                                 height: 40,
-                                width: 110,
+                                width: 140,
                                 backgroundColor: 'white',
                                 borderTopRightRadius: 20,
                                 borderBottomLeftRadius: 20,
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}>
-                                <Text>{item.duration}</Text>
+                                <Text>{item.estimatedTimeLower} to {item.estimatedTimeHigher} min.</Text>
 
                             </View>
                             <View style={{
@@ -263,7 +278,7 @@ const ServicesScreen = ({route, navigation}) => {
                                     marginTop: 3,
                                 }}
                             />
-                            <Text style={{ fontSize: 20, color: '#3D5B59' }} >{item.price}</Text>
+                            <Text style={{ fontSize: 20, color: '#3D5B59' }} >$ {item.price}</Text>
                         </View>
                         </View>
                     )
@@ -281,7 +296,6 @@ const ServicesScreen = ({route, navigation}) => {
         )
         
     }
-
     return (
         <SafeAreaView style={styles.container}>
             {renderHeader()}
