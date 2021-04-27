@@ -11,7 +11,8 @@ export class SalonService {
 
     async getSalons(credentials){
         try{
-            const data = await axios.get(`${manageAPI}salons/`, credentials);
+            console.log("HOLA DESDE GETTING SALONS")
+            const data = await axios.get(`${manageAPI}salons/list`, credentials);
             return data.data;
 
         }
