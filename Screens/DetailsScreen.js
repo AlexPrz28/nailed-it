@@ -1,6 +1,6 @@
 import React from "react"
 import { icons, images } from '../constants'
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, ImageBackground, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import ServiceService from "../service/ServiceService";
 
 
@@ -11,11 +11,6 @@ const DetailsScreen = ({ route, navigation }) => {
         <ScrollView
             style={styles.container}
             showsVerticalScrollIndicator={false}>
-            <StatusBar
-                barStyle="light-content"
-                translucent
-                backgroundColor="rgba(0,0,0,0)"
-            ></StatusBar>
             <ImageBackground
                 style={styles.headerImage}
                 source={images.hair}
