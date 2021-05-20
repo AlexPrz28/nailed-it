@@ -1,10 +1,8 @@
 import React from "react"
-import { Icon } from 'react-native-elements'
 import { icons, images } from '../constants'
-import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, ImageBackground, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, ImageBackground, StatusBar } from 'react-native';
 import ServiceService from "../service/ServiceService";
-import { withOrientation } from "react-navigation";
-import { Directions } from "react-native-gesture-handler";
+
 
 const DetailsScreen = ({ route, navigation }) => {
 
@@ -60,8 +58,11 @@ const DetailsScreen = ({ route, navigation }) => {
                         <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white', marginLeft: 5 }}> $400</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}> Book Now</Text>
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("Booking")}>
+                    <Text
+                        style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>
+                        Book Now
+                    </Text>
                 </TouchableOpacity>
             </View>
         </ScrollView >
