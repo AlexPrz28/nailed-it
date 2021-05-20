@@ -10,6 +10,8 @@ import {isIphoneX} from 'react-native-iphone-x-helper';
 
 import{MainScreen} from "../Screens"
 import{icons} from "../constants"
+import ReservationScreen from "../Screens/ReservationScreen"
+
 
 const Tab = createBottomTabNavigator();
 const TabBarCustomButtom = ({ accessibilityState, children, onPress}) => {
@@ -163,11 +165,11 @@ const Tabs = () => {
 
         <Tab.Screen
             name = "Liked"
-            component = {MainScreen}
+            component = {ReservationScreen}
             options={{
                 tabBarIcon: ({focused}) => (
                     <Image 
-                    source = {icons.heart}
+                    source = {icons.book}
                     resizeMode ="contain"
                     style ={{
                         width: 25,
