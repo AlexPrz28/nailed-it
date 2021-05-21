@@ -72,6 +72,7 @@ const ReservationScreen = ({navigation}) => {
     // }
     function renderSalonsList() {
         const renderItem = ({item}) => (
+            <View>
             <TouchableOpacity style = {{marginBottom: 5, marginTop: 20}}
             
             onPress = {() => navigation.navigate("Services", {
@@ -105,6 +106,8 @@ const ReservationScreen = ({navigation}) => {
                 </View>
 
                 
+
+                
                 <View 
                     style={{
                         marginTop: 5,
@@ -112,7 +115,12 @@ const ReservationScreen = ({navigation}) => {
                     }}
                 >
                 </View>
+
+
             </TouchableOpacity>
+            </View>
+
+            
         )
         return(
             <FlatList
