@@ -121,7 +121,9 @@ describe('Testing react navigation', () => {
     expect(newHeader).toBeTruthy();
   });
 
+
   test('button click on cancel reservation', async () => {
+
     const component = (
       <NavigationContainer>
         <AppNavigator />
@@ -132,10 +134,12 @@ describe('Testing react navigation', () => {
     const toClick = await findByTestId('button');
 
     fireEvent(toClick, 'press');
+
     const newHeader = await findByText('Main');
 
     expect(newHeader).toBeTruthy();
   });
+
 
 });
 
