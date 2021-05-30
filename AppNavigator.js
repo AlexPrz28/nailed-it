@@ -11,6 +11,9 @@ import RecoverPasswordScreen from './Screens/RecoverPasswordScreen';
 import DeleteAccountScreen from './Screens/DeleteAccount';
 import Tabs from './navigation/tabs';
 import ServicesScreen from './Screens/ServicesScreen';
+import DetailsScreen from './Screens/DetailsScreen';
+import BookingScreen from './Screens/BookingScreen';
+import ConfirmationScreen from './Screens/ConfirmationScreen';
 import ReservationScreen from './Screens/ReservationScreen';
 import DeleteService from './Screens/DeleteService';
 
@@ -22,16 +25,19 @@ export default function Navigation() {
 
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
-        <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
-        <Stack.Screen name="Main" component={Tabs} />
-        <Stack.Screen name="Services" component={ServicesScreen} />
-        <Stack.Screen name="Reservations" component={ReservationScreen} />
-        <Stack.Screen name="DeleteService" component={DeleteService}/>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
+      <Stack.Screen name="Main" component={Tabs} />
+      <Stack.Screen name="Services" component={ServicesScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="Booking" component={BookingScreen} />
+      <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
+      <Stack.Screen name="Reservations" component={ReservationScreen} />
+      <Stack.Screen name="DeleteService" component={DeleteService}/>
 
 
     </Stack.Navigator>
