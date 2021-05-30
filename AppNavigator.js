@@ -14,6 +14,8 @@ import ServicesScreen from './Screens/ServicesScreen';
 import DetailsScreen from './Screens/DetailsScreen';
 import BookingScreen from './Screens/BookingScreen';
 import ConfirmationScreen from './Screens/ConfirmationScreen';
+import ReservationScreen from './Screens/ReservationScreen';
+import DeleteService from './Screens/DeleteService';
 
 const { Screen, Navigator } = createStackNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +36,10 @@ export default function Navigation() {
       <Stack.Screen name="Details" component={DetailsScreen} />
       <Stack.Screen name="Booking" component={BookingScreen} />
       <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
+      <Stack.Screen name="Reservations" component={ReservationScreen} />
+      <Stack.Screen name="DeleteService" component={DeleteService}/>
+
+
     </Stack.Navigator>
   );
 }
