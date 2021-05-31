@@ -35,7 +35,7 @@ export default class LoginScreen extends React.Component{
         console.log(this.state)
         if(this.state.credentials.username != '' && this.state.credentials.email != '' && this.state.credentials.password != ''){
             await this.loginSer()
-            if(this.state.status == false){
+            if(this.state.status == true){
                 this.props.navigation.navigate('Main') 
             //console.log(this.state.credentials)
             }
@@ -63,6 +63,7 @@ export default class LoginScreen extends React.Component{
                     
                 })
                 console.log(response)
+                console.log("----------------")
 
             }
         ).catch(err =>{
