@@ -140,6 +140,24 @@ describe('Testing react navigation', () => {
     expect(newHeader).toBeTruthy();
   });
 
+  test('button click on showing reservations', async () => {
+
+    const component = (
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    );
+
+    const { findByText, findByTestId } = render(component);
+    const toClick = await findByTestId('button');
+
+    fireEvent(toClick, 'press');
+
+    const newHeader = await findByText('Main');
+
+    expect(newHeader).toBeTruthy();
+  });
+
 
 });
 
