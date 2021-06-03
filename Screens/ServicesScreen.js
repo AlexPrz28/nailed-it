@@ -2,14 +2,23 @@ import React from "react"
 import { icons } from '../constants'
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import ServiceService from "../service/ServiceService";
+import SalonService from '../service/SalonService';
 
 const ServicesScreen = ({ route, navigation }) => {
 
 
     const [salon, setSalon] = React.useState(null);
+    React.useEffect(() => {
+        const { id } = route.params;
+        console.log(id)
+        SalonService.getSalonData(id).then((res) => {
+            console.log(res)
+            setSalon(res.data)
+        })
+            .catch(err => console.log(err));
+    }, []);
 
     const [servicio, setServicios] = React.useState([]);
-
     React.useEffect(() => {
         const { id } = route.params;
         console.log(id)
@@ -49,7 +58,11 @@ const ServicesScreen = ({ route, navigation }) => {
                                     marginTop: 20,
                                     marginBottom: 20
                                 }}
-                                onPress={() => navigation.navigate("Details")}>
+                                onPress={() => navigation.navigate("Details", {
+                                    serviceId: item._id,
+                                    salonName: salon.name,
+                                    salonLocation: salon.location
+                                })}>
                                 {/* Image */}
                                 <View
                                     style={{
