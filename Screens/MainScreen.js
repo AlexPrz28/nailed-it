@@ -23,6 +23,7 @@ const MainScreen = ({ route, navigation }) => {
         SalonService.getSalons().then((res) => {
             //console.log(res)
             setSalones(res.data)
+            console.log(global.userData)
 
         })
             .catch(err => console.log(err));

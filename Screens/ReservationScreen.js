@@ -1,6 +1,11 @@
 import  React from 'react'
 import{icons, images} from "../constants"
 import { Root, Popup } from 'popup-ui'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import ReservationService from '../service/ReservationService';
+import moment from 'moment'
+
 
 import { 
     SafeAreaView, 
@@ -13,56 +18,53 @@ import {
 } from "react-native";
 
 const ReservationScreen = ({navigation}) => {
-    // this.props.navigation.setOptions({ 
-    //     headerBackTitle: '',
-    //     headerShown: false ,
-    // })
-    const salonData = [
-        {
-            id: 1,
-            name: "Shellac cosmetico",
-            photo: images.hair_salon1,
-            duration: "16:00",
-            rating: 4.9,
-        },
-        {
-            id: 2,
-            name: "Pedicure intergalactico",
-            photo: images.hair_salon2,
-            duration: "17:00",
-            rating: 4.2,
-        },
-        {
-            id: 3,
-            name: "Corte de cabello con navaja sovietica",
-            photo: images.hair_salon3,
-            duration: "12:00",
-            rating: 5.0,
-        }
-    ]
-    const [salons, setSalons] = React.useState(salonData)
-    // function renderMainSalons() {
-    //     return (
-    //         <View>
-    //             <Text style = {{
-    //                 height: 50,
-    //                 fontSize: 48,
-    //                 fontWeight: 'bold',
-    //                 justifyContent: 'center',
-    //                 alignItems: 'center'
-    //                 }}
-    //                 >Lista de
-    //             </Text>
-    //             <Text style = {{
-    //                 height: 650,
-    //                 fontSize: 48,
-    //                 fontWeight: 'bold',
-    //                 justifyContent: 'center',
-    //                 alignItems: 'center'
-    //             }}>Salones</Text>
-    //         </View>
-    //     )
-    // }
+
+    useEffect(() => {
+        ReservationService.getAllReservations(global.userData).then((res) => {
+            console.log('-----------------')
+            console.log(res)
+            console.log('-----------------')
+            setReservations(res.data)
+
+        })
+            .catch(err => console.log(err));
+    }, []);
+
+    const [reservations, setReservations] = useState([])
+
+    function time_convert(num) {
+        var military_time = Math.floor(num / 60) + ':' + num % 60
+        var mTime = moment(military_time, "hh:mm").format('LT')
+        return mTime
+
+    }
+
+
+    // const salonData = [
+    //     {
+    //         id: 1,
+    //         name: "Shellac cosmetico",
+    //         photo: images.hair_salon1,
+    //         duration: "16:00",
+    //         rating: 4.9,
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Pedicure intergalactico",
+    //         photo: images.hair_salon2,
+    //         duration: "17:00",
+    //         rating: 4.2,
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Corte de cabello con navaja sovietica",
+    //         photo: images.hair_salon3,
+    //         duration: "12:00",
+    //         rating: 5.0,
+    //     }
+    // ]
+    
+
     function renderSalonsList() {
         const renderItem = ({item}) => (
             <View>
@@ -92,8 +94,8 @@ const ReservationScreen = ({navigation}) => {
                                 ...styles.shadow
                             }}
                         >
-                        <Text style = {{fontSize: 16, fontWeight: 'bold'}}>{item.name}</Text>
-                            <Text style={{lineHeight: 22}}>{item.duration}</Text>
+                        <Text style = {{fontSize: 16, fontWeight: 'bold'}}>{item._id}</Text>
+                            <Text style={{lineHeight: 22}}>{time_convert(item.time_start)}-{time_convert(item.time_end)}</Text>
                         </View>
                     </View>
 
@@ -155,7 +157,7 @@ const ReservationScreen = ({navigation}) => {
         )
         return(
             <FlatList
-            data={salons}
+            data={reservations}
             keyExtractor={item => `${item.id}`}
             renderItem={renderItem}
             contentContainerStyle={{

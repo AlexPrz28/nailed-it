@@ -15,6 +15,22 @@ export class ReservationService {
         }
     }
 
+    async getAllReservations(credentials) {
+        console.log(global.userData)
+        try {
+            const data = await axios.get(`${manageAPI}reservations/list/${credentials}`, { user_id: credentials });
+            console.log("HOLA DESDE GETALLRESERVATIONS")
+            return data.data;
+            
+
+        }
+        catch (err) {
+            console.log(err);
+            console.log("ERROR EN GETALLRESERVATIONES")
+            throw 'error'
+        }
+    }
+
 
 };
 
