@@ -1,26 +1,59 @@
 import React from "react"
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import ReservationService from '../service/ReservationService';
+import ServiceService from "../service/ServiceService";
 
 const ConfirmationScreen = ({ route, navigation }) => {
+
+    const { salon, service, price, day, hour, service_id, time_start, time_end, hour_id } = route.params;
+
+    const reservation = {
+        user_id: global.userData,
+        service_id: service_id,
+        time_start: time_start,
+        time_end: time_end,
+        hour_id: hour_id,
+    };
+
+    const reservedHour = {
+        service_id: service_id,
+        hour_id: hour_id,
+    };
+
+    React.useEffect(() => {
+        ReservationService.createReservation(reservation).then((res) => {
+            console.log(res)
+        })
+            .catch(err => console.log(err));
+    }, []);
+
+    React.useEffect(() => {
+        ServiceService.deleteServiceHour(reservedHour).then((res) => {
+            console.log(res)
+        })
+            .catch(err => console.log(err));
+    }, []);
+
+
     return (
         <View style={styles.confirmation}>
             <View>
                 <Text style={{ fontSize: 30, fontWeight: 'bold', color: "white", textAlign: 'center', marginBottom: 20 }}>
-                    Your reservationhas been booked succesfully!
+                    Your reservation has been booked succesfully!
                 </Text>
             </View>
             <View style={styles.container}>
                 <Text style={styles.confirmationText}>
-                    Salon: Salon Name
+                    {salon}
                 </Text>
                 <Text style={styles.confirmationText}>
-                    Service: Service Name
+                    {service}
                 </Text>
                 <Text style={styles.confirmationText}>
-                    Date: Date
+                    {day.substring(0, 10)} at {hour}
                 </Text>
                 <Text style={styles.confirmationText} marginBottom={10}>
-                    Price to pay: $400 MXN
+                    ${price}
                 </Text>
             </View>
             <View>

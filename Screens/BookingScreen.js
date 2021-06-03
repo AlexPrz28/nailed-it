@@ -3,76 +3,116 @@ import React from "react"
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-community/picker';
+import ServiceService from "../service/ServiceService";
+import moment from 'moment'
+
 
 const BookingScreen = ({ route, navigation }) => {
+
+    const { id, salonName, service, price } = route.params;
 
     const [selectedDate, setSelectedDate] = React.useState(
         new Date(Date.now())
     )
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date)
-    }
-
     const [selectedHour, setSelectedHour] = React.useState(
-        null
+
+        [{
+            index: null,
+            value: null
+        }]
     )
 
-    return (
-        <View style={{ backgroundColor: 'white' }}>
-            <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#3D5B59', marginBottom: 15 }}>
-                    Select a day:
-                </Text>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify='space-around'>
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant='inline'
-                            format="dd/MM/yyyy"
-                            margin='normal'
-                            id='date-picker'
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date'
-                            }}
-                        />
-                    </Grid>
-                </MuiPickersUtilsProvider>
-            </View>
-            <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#3D5B59', marginBottom: 15 }}>
-                    Select an hour:
-                </Text>
-                <Picker
-                    style={{ width: 255, height: 50, justifyContent: 'center' }}
-                    selectedValue={selectedHour}
-                    onValueChange={(itemValue, itemIndex) => setSelectedHour(itemValue)}
-                >
-                    <Picker.Item label='09:00 AM' value='09:00 AM' />
-                    <Picker.Item label='10:00 AM' value='10:00 AM' />
-                    <Picker.Item label='11:00 AM' value='11:00 AM' />
-                    <Picker.Item label='04:30 PM' value='04:30 PM' />
-                    <Picker.Item label='05:30 PM' value='05:30 PM' />
-                    <Picker.Item label='06:30 PM' value='06:30 PM' />
+    const [availableHours, setAvailableHours] = React.useState([
+        {
+            service_id: null,
+            hours: []
+        }
+    ]);
 
-                </Picker>
-            </View>
-            <View>
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("Confirmation")}>
-                    <Text
-                        style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>
-                        Confirm Reservation
+    React.useEffect(() => {
+        ServiceService.getServiceHours(id).then((res) => {
+            console.log(res)
+            setAvailableHours(res.data)
+
+        })
+            .catch(err => console.log(err));
+    }, [])
+
+    function time_convert(num) {
+        var military_time = Math.floor(num / 60) + ':' + num % 60
+        var mTime = moment(military_time, "hh:mm").format('LT')
+        return mTime
+
+    };
+
+
+    function renderServiceBooking() {
+        return (
+            <View style={{ backgroundColor: 'white' }}>
+                <View style={{ marginTop: 150, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#3D5B59', marginBottom: 30 }}>
+                        Day:
+                </Text>
+                    <View style={{ width: 255, height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 19, color: 'black', marginBottom: 50 }}>
+                            {String(selectedDate).substring(0, 15)}
+                        </Text>
+                    </View>
+                </View>
+                <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#3D5B59', marginBottom: 20 }}>
+                        Select an hour:
+                </Text>
+                    <Picker
+                        style={{ width: 135, height: 20, justifyContent: 'center' }}
+                        selectedValue={selectedHour.value}
+                        onValueChange={(itemValue, itemIndex) => setSelectedHour({ index: itemIndex, value: itemValue })}
+                    >
+                        {availableHours.hours?.map(
+                            item => (
+                                <Picker.Item style={{ justifyContent: 'center', alignItems: 'center', fontSize: 20 }} key={item.hour_id} label={time_convert(item.timeStart)} value={time_convert(item.timeStart)} />
+                            ))
+                        }
+                    </Picker>
+                </View>
+                <View style={{ marginTop: 100 }}>
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("Confirmation",
+                        {
+                            salon: salonName,
+                            service: service,
+                            price: price,
+                            day: String(selectedDate),
+                            hour: selectedHour.value,
+                            service_id: id,
+                            time_start: availableHours.hours[selectedHour.index].timeStart,
+                            time_end: availableHours.hours[selectedHour.index].timeEnd,
+                            hour_id: availableHours.hours[selectedHour.index].hour_id
+                        })
+                    }>
+                        <Text
+                            style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>
+                            Confirm Reservation
                     </Text>
-                </TouchableOpacity>
-            </View>
-        </View >
-    );
+                    </TouchableOpacity>
+                </View>
+            </View >
+        );
 
-};
+    };
+
+
+    return (
+        <SafeAreaView style={styles.container}>
+            {renderServiceBooking()}
+        </SafeAreaView>
+    )
+
+}
+
+
 
 const styles = StyleSheet.create({
     container: {

@@ -1,14 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
-import {TextInput} from 'react-native-gesture-handler'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
 import * as Animatable from 'react-native-animatable';
 import LoginService from '../service/LoginService';
+import { useState } from 'react';
 
 let authLogin;
 
-export default class LoginScreen extends React.Component{
+export default class LoginScreen extends React.Component {
 
-    constructor(props){
+
+    constructor(props) {
         super(props)
         this.validateInput = React.createRef()
 
@@ -21,7 +23,7 @@ export default class LoginScreen extends React.Component{
             }
         }
 
-        
+
         this.loginSer = this.loginSer.bind(this)
     }
 
@@ -31,28 +33,27 @@ export default class LoginScreen extends React.Component{
     }
 
 
-    onLogin = async() => {
+    onLogin = async () => {
         console.log(this.state)
-        if(this.state.credentials.username != '' && this.state.credentials.email != '' && this.state.credentials.password != ''){
+        if (this.state.credentials.username != '' && this.state.credentials.email != '' && this.state.credentials.password != '') {
             await this.loginSer()
-            if(this.state.status == true){
-                this.props.navigation.navigate('Main') 
-            //console.log(this.state.credentials)
+            if (this.state.status == true) {
+                this.props.navigation.navigate('Main')
             }
-            else{
-                this.setState({errorMsg: 'Correo o contraseña incorrecta'})
+            else {
+                this.setState({ errorMsg: 'Correo o contraseña incorrecta' })
             }
 
 
         }
-        else{
+        else {
             this.validateInput.current.shake(800)
-            this.setState({errorMsg: 'Favor de llenar todos los campos'})
+            this.setState({ errorMsg: 'Favor de llenar todos los campos' })
             //console.log(this.state.credentials)
         }
     }
 
-    loginSer = async() => {
+    loginSer = async () => {
         await LoginService.userLogin(this.state.credentials).then(
             response => {
                 console.log("ACEPTO")
@@ -60,13 +61,17 @@ export default class LoginScreen extends React.Component{
                     // ...this.state,
                     // status: true
                     ...this.state.status = true
-                    
+
                 })
+                console.log("----------------")
                 console.log(response)
+                global.userData = response.data.id
+                console.log("*************")
+                console.log(userData)
                 console.log("----------------")
 
             }
-        ).catch(err =>{
+        ).catch(err => {
             console.log("Rechazo")
             console.log(err)
             this.setState({
@@ -77,8 +82,8 @@ export default class LoginScreen extends React.Component{
     }
 
     handleChange = (event, target) => {
-    
-        if(target == 'email'){
+
+        if (target == 'email') {
             this.setState(prevState => ({
                 credentials: {                   // object that we want to update
                     ...prevState.credentials,    // keep all other key-value pairs
@@ -86,7 +91,7 @@ export default class LoginScreen extends React.Component{
                 }
             }))
         }
-        else if(target == 'password'){
+        else if (target == 'password') {
             this.setState(prevState => ({
                 credentials: {                   // object that we want to update
                     ...prevState.credentials,    // keep all other key-value pairs
@@ -94,30 +99,30 @@ export default class LoginScreen extends React.Component{
                 }
             }))
         }
-        
+
     };
 
-    render(){
-        return(
+    render() {
+        return (
             <View style={styles.container}>
-                    <Text style={{fontSize: 35, marginVertical: 50}} >Bienvenido de vuelta!</Text>
-                    <Text style={{fontSize: 16, color: 'gray', marginTop: 20}}>Ingresa a tu cuenta</Text>
+                <Text style={{ fontSize: 35, marginVertical: 50 }} >Bienvenido de vuelta!</Text>
+                <Text style={{ fontSize: 16, color: 'gray', marginTop: 20 }}>Ingresa a tu cuenta</Text>
 
 
-                    <Animatable.View ref={this.validateInput}>
-                    <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30}}
-                    autoCapitalize='none' 
-                    placeholder="Email"
-                    onChangeText = {text => this.handleChange(text, 'email')}
+                <Animatable.View ref={this.validateInput}>
+                    <TextInput style={{ marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20, marginVertical: 30 }}
+                        autoCapitalize='none'
+                        placeholder="Email"
+                        onChangeText={text => this.handleChange(text, 'email')}
                     />
 
-                    <TextInput style={{marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20}} 
-                    autoCapitalize='none'
-                    placeholder="Contraseña" 
-                    secureTextEntry={true}
-                    onChangeText = {text => this.handleChange(text, 'password')}
+                    <TextInput style={{ marginTop: 40, borderBottomColor: '#ddd', borderBottomWidth: 1, paddingBottom: 20 }}
+                        autoCapitalize='none'
+                        placeholder="Contraseña"
+                        secureTextEntry={true}
+                        onChangeText={text => this.handleChange(text, 'password')}
                     />
-                    <Text style={{color: 'red', textAlign: 'center', marginTop: 10}}>{this.state.errorMsg}</Text>
+                    <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>{this.state.errorMsg}</Text>
                 </Animatable.View>
 
                 <TouchableOpacity style={{ marginTop: 15, alignItems: 'center', justifyContent: 'center' }}
@@ -125,31 +130,31 @@ export default class LoginScreen extends React.Component{
                     <Text style={{ color: '#00D3F0' }}>Olvidé mi contraseña</Text>
                 </TouchableOpacity>
 
-                
 
-                <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 40}}>
-                    <TouchableOpacity 
-                    onPress={() => this.onLogin()}
-                    style={{width: 200, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 17}}>
-                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 25}}>Login</Text>
+
+                <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
+                    <TouchableOpacity
+                        onPress={() => this.onLogin()}
+                        style={{ width: 200, backgroundColor: '#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 17 }}>
+                        <Text style={{ textAlign: 'center', color: '#fff', fontSize: 25 }}>Login</Text>
                     </TouchableOpacity>
 
-                    <View style={{marginTop: 50 }}>
+                    <View style={{ marginTop: 50 }}>
                         <Text style={{ color: 'black' }}>No tienes una cuenta?</Text>
                     </View>
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableOpacity style={{width: 100, backgroundColor:'#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 10}}
-                    onPress={ () => this.props.navigation.navigate('Signup') }
-                    >
-                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 16}}>Registrate</Text>
-                    </TouchableOpacity>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity style={{ width: 100, backgroundColor: '#f792fa', padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 40, marginTop: 10 }}
+                            onPress={() => this.props.navigation.navigate('Signup')}
+                        >
+                            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 16 }}>Registrate</Text>
+                        </TouchableOpacity>
                     </View>
-                    <Text style={{marginTop: 100, color: 'gray'}}>Nailed it Copyright</Text>
+                    <Text style={{ marginTop: 100, color: 'gray' }}>Nailed it Copyright</Text>
 
                 </View>
 
-                
-                              
+
+
 
             </View>
         )
