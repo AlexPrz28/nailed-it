@@ -69,6 +69,20 @@ export class SalonService {
         }
     }
 
+    async getServiceById(credentials) {
+        try {
+            const data = await axios.post(`${manageAPI}services/get/id`, { id: credentials });
+            return data.data;
+
+        }
+        catch (err) {
+            console.log(err);
+            console.log("ERROR EN CONSEGUIR EL SERVICIO ESPECIFICO")
+            throw 'error'
+        }
+    }
+
+
 };
 
 export default new SalonService();

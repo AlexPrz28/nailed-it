@@ -4,6 +4,7 @@ import { Root, Popup } from 'popup-ui'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import ReservationService from '../service/ReservationService';
+import ServiceService from '../service/ServiceService';
 import moment from 'moment'
 
 
@@ -19,18 +20,32 @@ import {
 
 const ReservationScreen = ({navigation}) => {
 
+    const [reservations, setReservations] = useState([])
+    
     useEffect(() => {
         ReservationService.getAllReservations(global.userData).then((res) => {
             console.log('-----------------')
             console.log(res)
             console.log('-----------------')
             setReservations(res.data)
+        })
+            .catch(err => console.log(err));
+    }, []);
+
+    useEffect(() => {
+        ServiceService.getServiceById(reservations.servide_id).then((res) => {
+            console.log('-----------------')
+            console.log(res)
+            console.log('-----------------')
+            //setReservations(res.data)
 
         })
             .catch(err => console.log(err));
     }, []);
 
-    const [reservations, setReservations] = useState([])
+    
+
+    
 
     function time_convert(num) {
         var military_time = Math.floor(num / 60) + ':' + num % 60
