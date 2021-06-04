@@ -140,7 +140,7 @@ describe('Testing react navigation', () => {
     expect(newHeader).toBeTruthy();
   });
 
-  test('Showing empty screen after deleting reservations', async () => {
+  test('Showing empty screen after deleting reservations.', async () => {
 
     const component = (
       <NavigationContainer>
