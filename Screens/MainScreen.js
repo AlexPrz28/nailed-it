@@ -23,6 +23,7 @@ const MainScreen = ({ route, navigation }) => {
         SalonService.getSalons().then((res) => {
             //console.log(res)
             setSalones(res.data)
+            console.log(global.userData)
 
         })
             .catch(err => console.log(err));
@@ -40,7 +41,6 @@ const MainScreen = ({ route, navigation }) => {
     function renderSalonsList() {
         const renderItem = ({ item }) => (
             <TouchableOpacity style={{ marginBottom: 5, marginTop: 20 }}
-
                 onPress={() => navigation.navigate("Services", {
                     id: item._id
                 })} testID="button" >
