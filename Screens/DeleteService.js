@@ -16,7 +16,6 @@ import {
     Modal, 
     Pressable
 } from "react-native";
-import { id } from 'date-fns/locale';
 
     const DeleteService = ({route, navigation}) => {
         const { reservation_id, hour_id, service_id, time_end, time_start } = route.params;
@@ -37,7 +36,6 @@ import { id } from 'date-fns/locale';
             timeEnd: time_end
         }
         const deleteData = {
-            reservation_id: reservation_id,
             service_id: service_id,
             timeStart: time_start,
             timeEnd: time_end
@@ -48,7 +46,7 @@ import { id } from 'date-fns/locale';
             console.log("Este es el reservation_id:")
             console.log(reservation_id)
             console.log("-------------")
-            ReservationService.deleteReservation(deleteData).then((res) => {
+            ReservationService.deleteReservation(deleteData, reservation_id).then((res) => {
                 console.log('-------------')
                 console.log(res)
                 console.log('-------------')

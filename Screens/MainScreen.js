@@ -41,7 +41,6 @@ const MainScreen = ({ route, navigation }) => {
     function renderSalonsList() {
         const renderItem = ({ item }) => (
             <TouchableOpacity style={{ marginBottom: 5, marginTop: 20 }}
-
                 onPress={() => navigation.navigate("Services", {
                     id: item._id
                 })} testID="button" >

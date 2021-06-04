@@ -47,10 +47,10 @@ export class ReservationService {
         }
     }
 
-    async deleteReservation(credentials) {
+    async deleteReservation(credentials, id) {
         console.log(global.userData)
         try {
-            const data = await axios.post(`${manageAPI}reservations/cancel/${credentials}`, { reservation_id: credentials });
+            const data = await axios.post(`${manageAPI}reservations/cancel/${id}`, credentials);
             console.log("HOLA DESDE DESDE DELETERESERVATIONS")
             return data.data;
             
