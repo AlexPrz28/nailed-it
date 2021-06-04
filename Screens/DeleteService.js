@@ -1,6 +1,8 @@
 import  React from 'react'
 import  { useState } from "react";
 import{icons, images} from "../constants"
+import ReservationService from '../service/ReservationService';
+import ServiceService from '../service/ServiceService';
 
 import { 
     SafeAreaView, 
@@ -14,9 +16,53 @@ import {
     Modal, 
     Pressable
 } from "react-native";
+import { id } from 'date-fns/locale';
 
-    const DeleteService = ({navigation}) => {
+    const DeleteService = ({route, navigation}) => {
+        const { reservation_id, hour_id, service_id, time_end, time_start } = route.params;
         const [modalVisible, setModalVisible] = useState(false);
+        
+        // const [reservation, setReservation] = React.useState([]);
+        // React.useEffect(() => {
+        //     ReservationService.getReservationData(reservation_id).then((res) => {
+        //         console.log("ReservationData:")
+        //         console.log(res)
+        //         setReservation(res)
+        //     })
+        //         .catch(err => console.log(err));
+        // }, []);
+        const hourData = {
+            service_id: service_id,
+            timeStart: time_start,
+            timeEnd: time_end
+        }
+        const deleteData = {
+            reservation_id: reservation_id,
+            service_id: service_id,
+            timeStart: time_start,
+            timeEnd: time_end
+        }
+        React.useEffect(() => {
+            console.log("Este es el service_id:")
+            console.log(service_id)
+            console.log("Este es el reservation_id:")
+            console.log(reservation_id)
+            console.log("-------------")
+            ReservationService.deleteReservation(deleteData).then((res) => {
+                console.log('-------------')
+                console.log(res)
+                console.log('-------------')
+            })
+                .catch(err => console.log(err));
+        }, []);
+        
+        // React.useEffect(() => {
+        //     ServiceService.addServiceHour(hourData).then((res) => {
+        //         console.log(res)
+        //         // setServicios(res.data)
+        //     })
+        //         .catch(err => console.log(err));
+        // }, []);
         return (
         <View
             style={{
@@ -30,43 +76,19 @@ import {
                     fontSize:26
                     
                 }}>
-                    ¿Deseas eliminar tu reservación?
+                    Reservación eliminada
                 </Text>
-
     <View style={styles.centeredView}>
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-            }}
-        >
-        <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-                <Text style={styles.modalText}>Reservación Eliminada</Text>
-                <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => navigation.navigate("Reservations", setModalVisible(!modalVisible))}
-                >
-                <Text style={styles.textStyle}>Ok</Text>
-                </Pressable>
-            </View>
-            </View>
-        </Modal>
         <Pressable
             style={[styles.button, styles.buttonOpen]}
-            onPress={() => setModalVisible(true)}
+            onPress={() => navigation.navigate("Reservations", setModalVisible(!modalVisible))}
         >
-            <Text style={styles.textStyle}>Eliminar Reservación</Text>
+            <Text style={styles.textStyle}>Volver a panta de reservaciones</Text>
         </Pressable>
         </View>
             </View>
-            
             )
         }
-
         const styles = StyleSheet.create({
         centeredView: {
             flex: 1,

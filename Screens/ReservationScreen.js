@@ -25,7 +25,6 @@ const ReservationScreen = ({navigation}) => {
             console.log(res)
             console.log('-----------------')
             setReservations(res.data)
-
         })
             .catch(err => console.log(err));
     }, []);
@@ -38,40 +37,14 @@ const ReservationScreen = ({navigation}) => {
         return mTime
 
     }
-
-
-    // const salonData = [
-    //     {
-    //         id: 1,
-    //         name: "Shellac cosmetico",
-    //         photo: images.hair_salon1,
-    //         duration: "16:00",
-    //         rating: 4.9,
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Pedicure intergalactico",
-    //         photo: images.hair_salon2,
-    //         duration: "17:00",
-    //         rating: 4.2,
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Corte de cabello con navaja sovietica",
-    //         photo: images.hair_salon3,
-    //         duration: "12:00",
-    //         rating: 5.0,
-    //     }
-    // ]
     
 
     function renderSalonsList() {
         const renderItem = ({item}) => (
             <View>
-
                 <View style = {{marginBottom: 5, marginTop: 20}}
                 onPress = {() => navigation.navigate("Services", {
-                    item
+                    id:item._id
                 }         
                 )}
                 >
@@ -107,10 +80,13 @@ const ReservationScreen = ({navigation}) => {
                     >
                     </View>
                 </View>
-
                 <TouchableOpacity style = {{marginBottom: 5, marginTop: 20}}
                 onPress = {() => navigation.navigate("DeleteService", {
-                    item
+                    reservation_id: item._id,
+                    hour_id: item.hour_id,
+                    service_id: item.service_id,
+                    time_end: item.time_end,
+                    time_start: item.time_start
                 }         
                 )}
                 >

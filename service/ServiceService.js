@@ -45,7 +45,7 @@ export class SalonService {
 
     async deleteServiceHour(reservedHour) {
         try {
-            const data = await axios.post(`${manageAPI}hours/update/remove`, reservedHour);
+            const data = await axios.delete(`${manageAPI}hours/update/remove`, reservedHour);
             return data.data;
 
         }
@@ -65,6 +65,19 @@ export class SalonService {
         catch (err) {
             console.log(err);
             console.log("No se pudo eliminar la hora de la lista de horas disponibles del servicio")
+            throw 'error'
+        }
+    }
+
+    async addServiceHour(reservedHour) {
+        try {
+            const data = await axios.post(`${manageAPI}hours/update/add`, reservedHour);
+            return data.data;
+
+        }
+        catch (err) {
+            console.log(err);
+            console.log("No se pudo agregar la hora de la lista de horas disponibles del servicio")
             throw 'error'
         }
     }

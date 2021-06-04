@@ -1,13 +1,9 @@
 
 import React from "react"
-import DateFnsUtils from '@date-io/date-fns';
-import Grid from '@material-ui/core/Grid';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import ServiceService from "../service/ServiceService";
 import moment from 'moment'
-
 
 const BookingScreen = ({ route, navigation }) => {
 
@@ -54,10 +50,10 @@ const BookingScreen = ({ route, navigation }) => {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ marginTop: 150, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#3D5B59', marginBottom: 30 }}>
-                        Day:
+                        Day: 
                 </Text>
                     <View style={{ width: 255, height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 19, color: 'black', marginBottom: 50 }}>
+                        <Text style={{ fontSize: 19, color: 'black', marginBottom: 10 }}>
                             {String(selectedDate).substring(0, 15)}
                         </Text>
                     </View>

@@ -31,6 +31,38 @@ export class ReservationService {
         }
     }
 
+    async getReservationData(credentials) {
+        console.log(global.userData)
+        try {
+            const data = await axios.get(`${manageAPI}reservations/${credentials}/${credentials}`, { user_id: credentials, reservation_id: credentials });
+            console.log("HOLA DESDE GETALLRESERVATIONS")
+            return data.data;
+            
+
+        }
+        catch (err) {
+            console.log(err);
+            console.log("ERROR EN GETALLRESERVATIONES")
+            throw 'error'
+        }
+    }
+
+    async deleteReservation(credentials) {
+        console.log(global.userData)
+        try {
+            const data = await axios.post(`${manageAPI}reservations/cancel/${credentials}`, { reservation_id: credentials });
+            console.log("HOLA DESDE DESDE DELETERESERVATIONS")
+            return data.data;
+            
+
+        }
+        catch (err) {
+            console.log(err);
+            console.log("ERROR EN DELETEALLRESERVATIONS")
+            throw 'error'
+        }
+    }
+
 
 };
 
